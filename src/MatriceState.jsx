@@ -62,11 +62,6 @@ class MatriceState extends Component {
             if(matriceAp[x-1] !== undefined){
                 if( matriceAp[x-1][y] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
                     matriceAp[x-1][y] = 200
-                    console.log(x-1,y)
-                    matriceAp[x][y] = 200
-                    this.setState({
-                        matriceBlu: [...matriceAp]
-                    } , () => this.clickStyle(x-1,y))
                 }
             }
             if(matriceAp[x-1] !== undefined && matriceAp[y+1] !== undefined){
@@ -99,10 +94,10 @@ class MatriceState extends Component {
                     matriceAp[x+1][y+1] = 200
                 }
             }
-            /*matriceAp[x][y] = 200
+            matriceAp[x][y] = 200
             this.setState({
                 matriceBlu: [...matriceAp]
-            } , () => this.clickStyle(x-1,y) )*/  
+            })
         }
     }
     
