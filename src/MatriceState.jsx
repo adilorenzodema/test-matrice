@@ -8,7 +8,9 @@ class MatriceState extends Component {
         this.state = {
             Righe: 10,
             Colonne: 10,
-            matrice: [],
+            matrice: [{
+                valore: 0,
+                colore: false}],
             matriceBlu: []
         }
     }
@@ -22,7 +24,7 @@ class MatriceState extends Component {
             matriceApp.push([])
             for(let j=0; j<Colonne; j++){
                 //questo aggiunge sulla colonna i i numeri rand facendo un append (concat)
-                matriceApp[i].push(Math.floor(Math.random() * 100,1))
+                matriceApp[i].push({valore: Math.floor(Math.random() * 100,1), colore: false})
             }
         }
         this.setState({
@@ -32,7 +34,7 @@ class MatriceState extends Component {
     }  
 
     componentDidUpdate(){
-        console.log(this.state.matriceBlu)
+        console.log('entra')
         //let x = this.state.xState
         //let y = this.state.yState
         //console.log('entra')
@@ -49,52 +51,18 @@ class MatriceState extends Component {
                 matriceAp[i].push(this.state.matriceBlu[i][j])
             }
         }
-
-        //controllo prima se il campo non è undefined ovvero al di fuori della matrice 
-        if( matriceAp[x] !== undefined && matriceAp[y] !== undefined){
-            if(matriceAp[x-1] !== undefined && matriceAp[y-1] !== undefined){
-                if(matriceAp[x-1][y-1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x-1][y-1] = 200
-                    //console.log(x-1,y-1)
-                    //this.clickStyle(x-1,y-1)
-                } 
-            }
-            if(matriceAp[x-1] !== undefined){
-                if( matriceAp[x-1][y] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x-1][y] = 200
+        
+        if(matriceAp[x].valore !== undefined && matriceAp[y].valore !== undefined){
+            for(let i=x-1; i<x+2; i++){
+                for(let j=y-1; j<y+2; j++){
+                    if(matriceAp[i].valore !== undefined && matriceAp[j].valore !== undefined){
+                        if(matriceAp[i][j].valore < matriceAp[x][y].valore){
+                            matriceAp[i][j].colore = true
+                        }
+                    }
                 }
             }
-            if(matriceAp[x-1] !== undefined && matriceAp[y+1] !== undefined){
-                if( matriceAp[x-1][y+1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x-1][y+1] = 200
-                }
-            }
-            if(matriceAp[y-1] !== undefined){
-                if( matriceAp[x][y-1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x][y-1] = 200
-                }
-            }
-            if(matriceAp[y+1] !== undefined){
-                if( matriceAp[x][y+1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x][y+1] = 200
-                }
-            }
-            if(matriceAp[x+1] !== undefined && matriceAp[y-1] !== undefined){
-                if( matriceAp[x+1][y-1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x+1][y-1] = 200
-                }
-            }
-            if(matriceAp[x+1] !== undefined){
-                if( matriceAp[x+1][y] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x+1][y] = 200
-                }
-            }
-            if(matriceAp[x+1] !== undefined && matriceAp[y+1] !== undefined){
-                if( matriceAp[x+1][y+1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceAp[x+1][y+1] = 200
-                }
-            }
-            matriceAp[x][y] = 200
+            matriceAp[x][y].colore = true
             this.setState({
                 matriceBlu: [...matriceAp]
             })
