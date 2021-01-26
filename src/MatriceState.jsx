@@ -8,9 +8,7 @@ class MatriceState extends Component {
         this.state = {
             Righe: 10,
             Colonne: 10,
-            matrice: [{
-                valore: 0,
-                colore: false}],
+            matrice: [],
             matriceBlu: []
         }
     }
