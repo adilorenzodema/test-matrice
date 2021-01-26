@@ -34,7 +34,6 @@ class MatriceState extends Component {
     }  
 
     componentDidUpdate(){
-        console.log('entra')
         //let x = this.state.xState
         //let y = this.state.yState
         //console.log('entra')

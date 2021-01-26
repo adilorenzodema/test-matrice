@@ -21,22 +21,23 @@ class MostraMatrice extends Component {
     render() {
         const matrice = [...this.props.matrice]
         const matriceBlu = [...this.props.matriceBlu]
+        const Test = matrice.map((row,i) => (
+            <div> 
+              {row.map((col,j) =>( 
+                <div className="square"> {col.valore} </div>)
+              )}
+            </div>))
         return (
             <div>
-            {matrice.map((row,i) =>
-                <div> {/* {console.log(row)} */}
-                    {row.map((col,j) => 
-                    <div> {col.valore} </div>)}
-                </div>
+            
+                {Test}
 
-
-                /*<div key={i}> 
-                    {row.map((col,j) =>
+                {/* <div key={i}>  */}
+                   {/*  {row.map((col,j) => 
                     /*passo il valore della matrice nella posizione i,j e al click chiamata la funzione nel padre*/
                     /*<div key={j} className="square"  style={this.style(matriceBlu[i][j])} onClick={() => this.props.onClick(i,j) > {col.valore} </div>
                     )}
-                </div>*/
-            )}
+                   </div>*/}
             </div>
         )
     }
