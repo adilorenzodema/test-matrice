@@ -8,8 +8,7 @@ class MatriceState extends Component {
         this.state = {
             Righe: 10,
             Colonne: 10,
-            matrice: [],
-            matriceBlu: []
+            matrice: []
         }
     }
 
@@ -26,8 +25,7 @@ class MatriceState extends Component {
             }
         }
         this.setState({
-            matrice: [...matriceApp],
-            matriceBlu: [...matriceApp]
+            matrice: [...matriceApp]
         })
     }  
 
@@ -42,17 +40,16 @@ class MatriceState extends Component {
     clickStyle = (x,y) => {
         let matriceAp = []
         //eseguo la copia di tutta matriceBlu in matriceAp
-        for(let i=0; i<this.state.matriceBlu.length; i++) {
+        for(let i=0; i<this.state.matrice.length; i++) {
             matriceAp.push([])
-            for(let j=0; j<this.state.matriceBlu.length; j++) {
-                matriceAp[i].push(this.state.matriceBlu[i][j])
+            for(let j=0; j<this.state.matrice.length; j++) {
+                matriceAp[i].push(this.state.matrice[i][j])
             }
         }
-        
-        if(matriceAp[x].valore !== undefined && matriceAp[y].valore !== undefined){
+        if(matriceAp[x][y].valore !== undefined ){
             for(let i=x-1; i<x+2; i++){
                 for(let j=y-1; j<y+2; j++){
-                    if(matriceAp[i].valore !== undefined && matriceAp[j].valore !== undefined){
+                    if(i> -1 && i < this.state.Righe && j>-1 && j<this.state.Colonne){
                         if(matriceAp[i][j].valore < matriceAp[x][y].valore){
                             matriceAp[i][j].colore = true
                         }
@@ -61,7 +58,7 @@ class MatriceState extends Component {
             }
             matriceAp[x][y].colore = true
             this.setState({
-                matriceBlu: [...matriceAp]
+                matrice: [...matriceAp]
             })
         }
     }
@@ -69,8 +66,8 @@ class MatriceState extends Component {
     //crea nel componentdefault una funzione che per ogni campo della matrice inserisce un random
     // definisco una matrice vuota ed uno stato con la dimensione
     render() {
-        const {matrice, matriceBlu} = this.state
-        const renderMatrice = <MostraMatrice matrice={matrice} matriceBlu={matriceBlu} onClick={(i,j) => this.clickStyle(i,j) }/>
+        const {matrice} = this.state
+        const renderMatrice = <MostraMatrice matrice={matrice} onClick={(i,j) => this.clickStyle(i,j) }/>
         return (
             <div className="center Body">
                 {renderMatrice} 

@@ -3,30 +3,29 @@ import React, { Component } from 'react'
 class MostraMatrice extends Component {
 
     style = (matriceB) => {
-        if(matriceB === 200)
+        if(matriceB.colore === true)
             return ( {
                 backgroundColor: '#64b5f6',
                 transition: 'background-color 2s'
         })
-        else if(matriceB < 30) 
+        else if(matriceB.valore < 30) 
             return ( {backgroundColor: '#689f38'})
-        else if (matriceB < 60)
+        else if (matriceB.valore < 60)
             return ( {backgroundColor: '#fdd835'})
-        else if (matriceB < 90)
+        else if (matriceB.valore < 90)
             return ( {backgroundColor: '#ff8f00'})
-        else if (matriceB < 100)
+        else if (matriceB.valore < 100)
             return ( {backgroundColor: '#e65100'})
     }
     
     render() {
         const matrice = [...this.props.matrice]
-        const matriceBlu = [...this.props.matriceBlu]
         return (
             <div>
             {matrice.map((row,i) =>
                 <div key={i}>
                     {row.map((col,j) => 
-                    <div key={j} className="square" /*style={this.style(matriceBlu[i][j])} onClick={() => this.props.onClick(i,j)}*/ > {col.valore} </div>)}
+                    <div key={j} className="square" style={this.style(col)} onClick={() => this.props.onClick(i,j)} > {col.valore} </div>)}
                 </div>
                 /*<div key={i}> 
                     {row.map((col,j) => */
