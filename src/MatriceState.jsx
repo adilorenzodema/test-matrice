@@ -55,86 +55,21 @@ class MatriceState extends Component {
                 matriceCordAp.push([])
             }
         }
-        /*console.log(x,y)
-        console.log('matriceblu')
-        console.log(this.state.matriceBlu)
-        console.log('matriceap')
-        console.log(matriceAp)*/
 
-        //controllo prima se il campo non è undefined ovvero al di fuori della matrice 
-        if( matriceAp[x] !== undefined && matriceAp[y] !== undefined){
-            if(matriceAp[x-1] !== undefined && matriceAp[y-1] !== undefined){
-                if(matriceAp[x-1][y-1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    matriceCordAp.push(x-1, y-1)
-                    //matriceAp[x-1][y-1] = 200
-                } 
-            }
-            if(matriceAp[x-1] !== undefined){
-                if( matriceAp[x-1][y] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x-1][y] = 200
-                    matriceCordAp.push(x-1, y-1)
-                    console.log('condizione')
-                    /*this.setState({
-                        matriceBlu: [...matriceAp]
-                    }), () => this.clickStyle(x-1,y))//() => { console.log(this.state.matriceBlu)}) */
-                    //this.componentDidUpdate(x-1,y)
-                    
+        if(matriceAp[x] !== undefined && matriceAp[y] !== undefined){
+            for(let i=x-1; i<x+2; i++){
+                for(let j=y-1; j<y+2; j++){
+                    if(matriceAp[i] !== undefined && matriceAp[j] !== undefined){
+                        if(matriceAp[i][j] < matriceAp[x][y]){
+                            matriceAp[i][j] = 200
+                        }
+                    }
                 }
             }
-            if(matriceAp[x-1] !== undefined && matriceAp[y+1] !== undefined){
-                if( matriceAp[x-1][y+1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x-1][y+1] = 200
-                    matriceCordAp.push(x-1, y-1)
-                   /*  this.setState({
-                        matriceBlu: [...matriceAp]
-                    }, () => this.clickStyle(x-1,y+1))*/
-                } 
-            }
-            if(matriceAp[y-1] !== undefined){
-                if( matriceAp[x][y-1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x][y-1] = 200
-                    matriceCordAp.push(x-1, y-1)
-                   /*  this.setState({
-                        matriceBlu: [...matriceAp]
-                    }, () => this.clickStyle(x,y-1)) */
-                }
-            }
-            if(matriceAp[y+1] !== undefined){
-                if( matriceAp[x][y+1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x][y+1] = 200
-                    matriceCordAp.push(x-1, y-1)
-                }
-            }
-            if(matriceAp[x+1] !== undefined && matriceAp[y-1] !== undefined){
-                if( matriceAp[x+1][y-1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x+1][y-1] = 200
-                    matriceCordAp.push(x-1, y-1)
-                }
-            }
-            if(matriceAp[x+1] !== undefined){
-                if( matriceAp[x+1][y] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x+1][y] = 200
-                    matriceCordAp.push(x-1, y-1)
-                }
-            }
-            if(matriceAp[x+1] !== undefined && matriceAp[y+1] !== undefined){
-                if( matriceAp[x+1][y+1] < matriceAp[x][y] &&  matriceAp[x][y] !== 200 ){
-                    //matriceAp[x+1][y+1] = 200
-                    matriceCordAp.push(x-1, y-1)
-                }
-            }
-            //matriceAp[x][y] = 200
-            matriceCordAp.push(x,y)
-            for(let i=0; i<matriceCordAp.length; i+=2){
-                console.log(matriceCordAp[0])
-                //matriceAp[matriceCordAp[i]][matriceCordAp[i+1]] = 200
-            }
+            matriceAp[x][y] = 200
             this.setState({
-                matriceBlu: [...matriceAp],
-                xState: x,
-                yState: y
+                matriceBlu: [...matriceAp]
             })
-            /*,  () => this.clickStyle(x-1,y) )*/  
         }
     }
     
