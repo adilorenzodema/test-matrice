@@ -8,7 +8,9 @@ class MatriceState extends Component {
         this.state = {
             Righe: 10,
             Colonne: 10,
-            matrice: []
+            matrice: [],
+            xState: undefined,
+            yState: undefined
         }
     }
 
@@ -33,8 +35,15 @@ class MatriceState extends Component {
         //let x = this.state.xState
         //let y = this.state.yState
         //console.log('entra')
-        //console.log(x, y)
-        //this.clickStyle(x,y)
+        console.log(this.state.xState)
+        if( this.state.xState > 0 && this.state.xState < this.state.Righe -1 ){
+            if( this.state.matrice[this.state.xState-1][this.state.yState].valore < this.state.matrice[this.state.xState][this.state.yState].valore){
+                this.clickStyle(this.state.xState-1,this.state.yState)
+            }
+            if( this.state.matrice[this.state.xState+1][this.state.yState].valore < this.state.matrice[this.state.xState][this.state.yState].valore){
+                this.clickStyle(this.state.xState+1,this.state.yState)
+            }
+        }
     }
 
     clickStyle = (x,y) => {
@@ -46,20 +55,67 @@ class MatriceState extends Component {
                 matriceAp[i].push(this.state.matrice[i][j])
             }
         }
-        if(matriceAp[x][y].valore !== undefined ){
-            for(let i=x-1; i<x+2; i++){
-                for(let j=y-1; j<y+2; j++){
-                    if(i> -1 && i < this.state.Righe && j>-1 && j<this.state.Colonne){
-                        if(matriceAp[i][j].valore < matriceAp[x][y].valore){
-                            matriceAp[i][j].colore = true
+        console.log(x,y)
+        if( x !== undefined && y !== undefined){
+            //if( this.state.count === 0){
+                if(x > -1 && x < this.state.Righe && y >-1 && y<this.state.Colonne){
+                    for(let i=x-1; i<x+2; i++){
+                        for(let j=y-1; j<y+2; j++){
+                            if(i> -1 && i < this.state.Righe && j>-1 && j<this.state.Colonne){
+                                if(matriceAp[i][j].valore < matriceAp[x][y].valore){
+                                    matriceAp[i][j].colore = true
+                                }
+                            }
                         }
                     }
+                    matriceAp[x][y].colore = true
+                    // salvi in set stase x e y in modo che il componentdiupdated richiama lo state x-1 e cosi via
+                    this.setState({
+                        matrice: [...matriceAp],
+                        xState: x,
+                        yState: y
+                    })
                 }
-            }
-            matriceAp[x][y].colore = true
-            this.setState({
-                matrice: [...matriceAp]
-            })
+            //}
+            /*if(x > -1 && x < this.state.Righe && y >-1 && y<this.state.Colonne){
+                if (this.state.count > 0 && matriceAp[x][y].colore === true){
+                    for(let i=x-1; i<x+2; i++){
+                        for(let j=y-1; j<y+2; j++){
+                            if(i> -1 && i < this.state.Righe && j>-1 && j<this.state.Colonne){
+                                if(matriceAp[i][j].valore < matriceAp[x][y].valore){
+                                    matriceAp[i][j].colore = true
+                                }
+                            }
+                        }
+                    }
+                    //matriceAp[x][y].colore = true
+                    // salvi in set stase x e y in modo che il componentdiupdated richiama lo state x-1 e cosi via
+                    this.setState({
+                        matrice: [...matriceAp],
+                        xState: x,
+                        yState: y,
+                        count: this.state.count +1
+                    })
+                }
+                else if (this.state.count > 0 && matriceAp[x][y].colore === false){
+                    console.log(x,y)
+                    for(let i=x-1; i<x+2; i++){
+                        for(let j=y-1; j<y+2; j++){
+                            if(i> -1 && i < this.state.Righe && j>-1 && j<this.state.Colonne){
+                                if(matriceAp[i][j].valore < matriceAp[x][y].valore){
+                                    matriceAp[i][j].colore = true
+                                }
+                            }
+                        }
+                    }
+                    matriceAp[x][y].colore = true
+                    // salvi in set stase x e y in modo che il componentdiupdated richiama lo state x-1 e cosi via
+                    this.setState({
+                        matrice: [...matriceAp],
+                        count: this.state.count +1
+                    })
+                }
+            }*/
         }
     }
     
